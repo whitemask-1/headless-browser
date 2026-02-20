@@ -1,9 +1,8 @@
 import webview
-import threading
 import json
 import os
 import sys
-import tkinter as tk
+import time
 
 DATA_FILE = os.path.expanduser("~/.browser_groups.json")
 
@@ -22,31 +21,63 @@ def load_group(name):
     return data[name]
 
 
-def launch_control_panel(sites):
-    root = tk.Tk()
-    root.title("Browser Control")
-    root.attributes("-topmost", True)
-    root.resizable(False, False)
+class Api:
+    def __init__(self, sites):
+        self.sites = sites
 
-    tk.Label(root, text="Switch to:", font=("Helvetica", 13, "bold")).pack(pady=(10, 5))
+    def navigate(self, url):
+        window.load_url(url)
 
+    def get_sites(self):
+        return self.sites
+
+
+def build_html(sites):
+    buttons = ""
     for key, url in sites.items():
         label = url.replace("https://", "").replace("www.", "").split("/")[0]
-        tk.Button(
-            root,
-            text=f"{key}: {label}",
-            width=25,
-            command=lambda u=url: window.load_url(u),
-        ).pack(pady=2, padx=10)
+        buttons += f"<button onclick=\"navigate('{url}')\">{key}: {label}</button>\n"
 
-    tk.Button(
-        root,
-        text="Close Browser",
-        fg="red",
-        command=lambda: [window.destroy(), root.destroy()],
-    ).pack(pady=10)
-
-    root.mainloop()
+    return f"""
+    <html>
+    <head>
+    <style>
+        body {{
+            background: #1e1e1e;
+            color: white;
+            font-family: Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            gap: 8px;
+            margin: 0;
+        }}
+        button {{
+            width: 200px;
+            padding: 8px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }}
+        button:hover {{ background: #444; }}
+        h3 {{ margin-bottom: 10px; }}
+    </style>
+    </head>
+    <body>
+    <h3>Switch to:</h3>
+    {buttons}
+    </body>
+    <script>
+        function navigate(url) {{
+            pywebview.api.navigate(url);
+        }}
+    </script>
+    </html>
+    """
 
 
 def main():
@@ -57,13 +88,21 @@ def main():
 
     group_name = sys.argv[1]
     sites = load_group(group_name)
+    api = Api(sites)
 
-    window = webview.create_window(
-        "Browser", list(sites.values())[0], frameless=True
+    # main browser window
+    window = webview.create_window("Browser", list(sites.values())[0], frameless=True)
+
+    # small control panel window
+    webview.create_window(
+        "Control Panel",
+        html=build_html(sites),
+        js_api=api,
+        width=250,
+        height=100 + len(sites) * 45,
+        on_top=True,
+        frameless=False,
     )
-
-    t = threading.Thread(target=launch_control_panel, args=(sites,), daemon=True)
-    t.start()
 
     webview.start()
 
