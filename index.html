@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background: #0f0f0f;
+      font-family: Helvetica, sans-serif;
+      overflow: hidden;
+    }
+
+    #sidebar {
+      width: 180px;
+      min-width: 180px;
+      background: #0f0f0f;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 10px;
+      gap: 6px;
+      transition: width 0.2s ease;
+    }
+
+    #sidebar.collapsed {
+      width: 40px;
+      min-width: 40px;
+      padding: 16px 6px;
+    }
+
+    #sidebar.collapsed .site-btn span,
+    #sidebar.collapsed #title {
+      display: none;
+    }
+
+    #header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      -webkit-app-region: drag;
+    }
+
+    #title {
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    #toggle {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+      -webkit-app-region: no-drag;
+    }
+
+    #toggle:hover { color: #e2e8f0; }
+
+    .site-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1e1e1e;
+      border: none;
+      border-radius: 6px;
+      padding: 8px;
+      color: #e2e8f0;
+      font-size: 11px;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      -webkit-app-region: no-drag;
+    }
+
+    .site-btn:hover {
+      background: #2a2a2a;
+      color: #3b82f6;
+    }
+
+    .site-btn .num {
+      color: #3b82f6;
+      font-weight: bold;
+      min-width: 12px;
+    }
+
+    #browser {
+      flex: 1;
+      height: 100vh;
+    }
+
+    /* drag region for frameless window */
+    #drag {
+      -webkit-app-region: drag;
+      height: 4px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="drag"></div>
+  <div id="sidebar">
+    <div id="header">
+      <span id="title">Sites</span>
+      <button id="toggle">‹</button>
+    </div>
+    <div id="buttons"></div>
+  </div>
+  <webview id="browser" src="https://youtube.com" allowpopups></webview>
+  <script src="renderer.js"></script>
+</body>
+</html>
