@@ -1,47 +1,27 @@
 # headless-browser
 
-A frameless browser launcher with site group management. Launch curated sets of websites from the command line, switch between them using a floating control panel, and keep your terminal free.
+A frameless Electron browser with an embedded sidebar for site group management. Launch curated sets of websites from the command line, switch between them using an in-window sidebar, and keep your terminal free.
 
 ## Features
 
-- Frameless Chrome window via pywebview
+- Frameless Electron window with dark theme
+- Collapsible sidebar to switch between sites in a group
 - Save named groups of sites that persist across sessions
-- Floating always-on-top control panel to switch sites without touching the terminal
 - Manage groups interactively via CLI
+- Fullscreen-in-window support for embedded webviews
+- Draggable title region for frameless window movement
 
 ## Requirements
 
-- Python 3.8+
-- Homebrew (Mac)
-- tkinter (included with most Python installs)
+- Node.js
+- Python 3.8+ (for the group management CLI)
 
 ## Setup
 
 ```bash
-# clone the repo
 git clone https://github.com/yourusername/headless-browser.git
 cd headless-browser
-
-# create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate
-
-# install dependencies
-pip install -r requirements.txt
-```
-
-### Optional: shell aliases
-
-Add these to your `.zshrc` for quick access from anywhere:
-
-```bash
-alias browser="python ~/headless-browser/src/browser.py"
-alias browser-manage="python ~/headless-browser/src/manage.py"
-```
-
-Then reload:
-```bash
-source ~/.zshrc
+npm install
 ```
 
 ## Usage
@@ -70,28 +50,25 @@ Saved group 'work'
 ### 2. Launch a group
 
 ```bash
-python src/browser.py work
+npm start -- work
 ```
 
-Or with the alias:
-```bash
-browser work
-```
-
-This opens a frameless browser window and a small control panel. Use the control panel buttons to switch between sites in the group.
+This opens a frameless browser window with a sidebar listing each site. Click a site to load it in the main webview. The sidebar can be collapsed with the toggle button.
 
 ## Project Structure
 
 ```
 headless-browser/
+├── main.js          # Electron main process — creates the window, injects site data
+├── index.html       # UI shell — sidebar, webview, styles
+├── renderer.js      # Renderer script — populates sidebar buttons, handles navigation
+├── sites.json       # (unused) placeholder for local site data
 ├── src/
-│   ├── browser.py      # launches the browser and control panel
-│   └── manage.py       # CLI for managing site groups
-├── requirements.txt
-├── .gitignore
-└── README.md
+│   └── manage.py    # Python CLI for managing site groups
+├── package.json
+└── .gitignore
 ```
 
 ## Data Storage
 
-Site groups are stored in `~/.browser_groups.json` on your machine and are not tracked by git.
+Site groups are stored in `~/.browser_groups.json` and are not tracked by git.
