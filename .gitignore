@@ -11,4 +11,5 @@ build/
 ~/.browser_groups.json
 Makefile
 node_modules/
+.claude
 
