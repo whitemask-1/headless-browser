@@ -36,6 +36,9 @@ Launch curated sets of websites from the command line, switch between them with 
 - **Fullscreen-in-window** -- webview fullscreen expands within the app window, not your entire display
 - **Keyboard shortcuts** -- `Cmd/Ctrl+R` reload, `Cmd/Ctrl+←` back, `Cmd/Ctrl+→` forward, `Cmd/Ctrl+L` search bar
 - **Keyboard-number nav** -- sites are numbered for fast identification
+- **Persistent sessions** -- cookies, logins, and local storage survive across app restarts
+- **Single sign-on** -- sign into Google, GitHub, Microsoft, etc. once and stay logged in
+- **Popup filtering** -- ad networks, trackers, and scam popups are blocked automatically; legitimate links open in-place
 
 ## Quick Start
 
@@ -111,6 +114,16 @@ Press **`Cmd+L`** (macOS) or **`Ctrl+L`** (Windows/Linux) at any time to open th
 | `Cmd/Ctrl + ←` | Go back |
 | `Cmd/Ctrl + →` | Go forward |
 | `Escape` | Close search bar |
+
+## Session Persistence & Sign-In
+
+The webview uses a persistent partition (`persist:main`), so all cookies, local storage, and session data are retained between app restarts. Sign into any account — Google, GitHub, Microsoft, etc. — and you'll stay logged in the next time you launch.
+
+**No profile import is needed.** Just sign in once inside the webview and the session persists.
+
+### Popup & Ad Filtering
+
+Links that would normally open a new browser window (e.g. `target="_blank"`) are intercepted and navigated in-place within the webview. Additionally, popups from known ad networks – including DoubleClick, Taboola, Outbrain, PopAds, and others – are blocked silently. Auth popups (Google sign-in, Microsoft login, etc.) are allowed through so sign-in flows work normally.
 
 ## Project Structure
 

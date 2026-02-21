@@ -31,6 +31,92 @@ function createWindow() {
     );
   });
   win.webContents.on("did-attach-webview", (event, wc) => {
+    // Block ad / tracker / scam popups, navigate legit links in-place
+    const blockedDomains = [
+      "doubleclick.net",
+      "googlesyndication.com",
+      "googleadservices.com",
+      "adservice.google.com",
+      "amazon-adsystem.com",
+      "facebook.com/tr",
+      "ad.atdmt.com",
+      "adnxs.com",
+      "adsrvr.org",
+      "outbrain.com",
+      "taboola.com",
+      "popads.net",
+      "popcash.net",
+      "propellerads.com",
+      "trafficjunky.com",
+      "exoclick.com",
+      "juicyads.com",
+      "clickadu.com",
+      "admaven.com",
+      "revcontent.com",
+      "mgid.com",
+      "zergnet.com",
+      "content.ad",
+      "adsterra.com",
+      "hilltopads.net",
+      "richpush.co",
+    ];
+
+    const blockedPatterns = [
+      /\/ads\//i,
+      /\/ad\//i,
+      /[?&]ad_/i,
+      /[?&]utm_/i,
+      /click(\.|id|tracker|serve)/i,
+      /tracker\./i,
+      /redirect.*click/i,
+      /popup/i,
+    ];
+
+    function isBlockedUrl(url) {
+      try {
+        const hostname = new URL(url).hostname;
+        if (blockedDomains.some((d) => hostname === d || hostname.endsWith("." + d))) {
+          return true;
+        }
+        if (blockedPatterns.some((re) => re.test(url))) {
+          return true;
+        }
+      } catch {
+        return true; // malformed URLs are suspicious
+      }
+      return false;
+    }
+
+    wc.setWindowOpenHandler(({ url, disposition }) => {
+      // Always allow auth popups (sign-in flows)
+      try {
+        const hostname = new URL(url).hostname;
+        if (
+          hostname.includes("accounts.google.com") ||
+          hostname.includes("login.microsoftonline.com") ||
+          hostname.includes("appleid.apple.com") ||
+          hostname.includes("github.com/login") ||
+          hostname.includes("auth")
+        ) {
+          return { action: "allow" };
+        }
+      } catch {}
+
+      // Block known ad/tracker/scam URLs entirely
+      if (isBlockedUrl(url)) {
+        return { action: "deny" };
+      }
+
+      // Programmatic window.open() from unknown sources — block
+      if (disposition === "new-window") {
+        return { action: "deny" };
+      }
+
+      // User-initiated clicks (foreground-tab, background-tab) — navigate in-place
+      wc.loadURL(url);
+      return { action: "deny" };
+    });
+
     wc.on("enter-html-full-screen", () => {
       win.webContents.executeJavaScript(
         `document.body.classList.add('webview-fullscreen')`,
