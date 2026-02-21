@@ -165,6 +165,15 @@ function createWindow() {
         win.webContents.executeJavaScript(`window.__toggleSearchBar()`);
         event.preventDefault();
       }
+
+      if (meta && input.key === "t") {
+        event.preventDefault();
+        const pinned = !win.isAlwaysOnTop();
+        win.setAlwaysOnTop(pinned, "floating");
+        win.webContents.executeJavaScript(
+          `if (typeof window.__showPinIndicator === "function") window.__showPinIndicator(${pinned});`
+        );
+      }
     });
   });
 

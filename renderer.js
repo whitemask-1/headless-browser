@@ -86,6 +86,21 @@ function init() {
   });
 }
 
+window.__showPinIndicator = function (pinned) {
+  let indicator = document.getElementById("pin-indicator");
+  if (!indicator) {
+    indicator = document.createElement("div");
+    indicator.id = "pin-indicator";
+    document.body.appendChild(indicator);
+  }
+  indicator.textContent = pinned ? "\ud83d\udccc Pinned on top" : "\ud83d\udccc Unpinned";
+  indicator.style.opacity = "1";
+  clearTimeout(window.__pinTimeout);
+  window.__pinTimeout = setTimeout(() => {
+    indicator.style.opacity = "0";
+  }, 1500);
+};
+
 const waitForSites = setInterval(() => {
   if (window.__sites__ !== undefined) {
     clearInterval(waitForSites);
