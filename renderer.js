@@ -5,8 +5,6 @@ function init() {
   const toggle = document.getElementById("toggle");
   const sidebar = document.getElementById("sidebar");
 
-  console.log("sites:", sites);
-
   Object.entries(sites).forEach(([key, url]) => {
     const label = url.replace("https://", "").replace("www.", "").split("/")[0];
     const btn = document.createElement("button");

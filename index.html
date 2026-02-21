@@ -22,6 +22,8 @@
       padding: 16px 10px;
       gap: 6px;
       transition: width 0.2s ease;
+      z-index: 20;
+      position: relative;
     }
 
     #sidebar.collapsed {
@@ -88,21 +90,22 @@
       min-width: 12px;
     }
 
-    webview:-webkit-full-screen {
-	    width: 100% !important;
-	    height: 100% !important;
-  		position: absolute !important;
-  		top: 0 !important;
-  		left: 0 !important;
+    body.webview-fullscreen #sidebar {
+      display: none;
     }
 
-    webview:fullscreen {
-      width: 100% !important;
-      height: 100% !important; 
-  	position: absolute !important;
-  	top: 0 !important;
-  	left: 0 !important;
-   }
+    body.webview-fullscreen #drag {
+      display: none;
+    }
+
+    body.webview-fullscreen #browser {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 100;
+    }
     
 
     #browser {

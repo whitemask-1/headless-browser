@@ -31,7 +31,8 @@ Launch curated sets of websites from the command line, switch between them with 
 - **Site groups** -- save named collections of URLs that persist across sessions
 - **CLI management** -- create, edit, delete, and view groups from your terminal
 - **Dark theme** -- easy on the eyes with a `#0f0f0f` background
-- **Fullscreen-in-window** -- webview fullscreen without taking over your display
+- **Fullscreen-in-window** -- webview fullscreen expands within the app window, not your entire display
+- **Keyboard shortcuts** -- `Cmd/Ctrl+R` reload, `Cmd/Ctrl+Left` back, `Cmd/Ctrl+Right` forward
 - **Keyboard-number nav** -- sites are numbered for fast identification
 
 ## Quick Start
@@ -99,7 +100,7 @@ headless-browser/
 
 | Component     | Role                                                                                                                            |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `main.js`     | Reads `~/.browser_groups.json`, creates a frameless `BrowserWindow`, injects site data into the renderer via `window.__sites__` |
+| `main.js`     | Reads `~/.browser_groups.json`, creates a frameless `BrowserWindow`, injects site data, handles in-window fullscreen and keyboard shortcuts |
 | `index.html`  | Defines the layout: a fixed transparent drag region, collapsible sidebar, and a `<webview>` for browsing                        |
 | `renderer.js` | Waits for injected site data, dynamically creates sidebar buttons, handles navigation and collapse                              |
 | `manage.py`   | Interactive CLI that reads/writes `~/.browser_groups.json` for group management                                                 |
