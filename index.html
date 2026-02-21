@@ -95,7 +95,7 @@
     }
 
     body.webview-fullscreen #drag {
-      display: none;
+      z-index: 200;
     }
 
     body.webview-fullscreen #browser {
@@ -134,7 +134,7 @@
     </div>
     <div id="buttons"></div>
   </div>
-  <webview id="browser" src="https://youtube.com" allowpopups partition="persist:main"></webview>
+  <webview id="browser" allowpopups allowfullscreen partition="persist:main"></webview>
   <script src="renderer.js"></script>
 </body>
 </html>
