@@ -5,7 +5,10 @@ const os = require("os");
 
 const groupName = process.argv.slice(2).find((a) => !a.startsWith("-")) || "";
 const dataFile = path.join(os.homedir(), ".browser_groups.json");
-const data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
+let data = {};
+try {
+  data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
+} catch {}
 const sites = data[groupName] || {};
 
 function createWindow() {
@@ -21,9 +24,10 @@ function createWindow() {
       webviewTag: true,
     },
   });
+  const isBare = !groupName || Object.keys(sites).length === 0;
   win.webContents.on("did-finish-load", () => {
     win.webContents.executeJavaScript(
-      `window.__sites__ = ${JSON.stringify(sites)}`,
+      `window.__sites__ = ${JSON.stringify(sites)}; window.__bare__ = ${isBare}; window.__group__ = ${JSON.stringify(groupName)};`,
     );
   });
   win.webContents.on("did-attach-webview", (event, wc) => {
@@ -55,6 +59,11 @@ function createWindow() {
 
       if (meta && input.key === "ArrowRight") {
         wc.navigationHistory.goForward();
+        event.preventDefault();
+      }
+
+      if (meta && input.key === "l") {
+        win.webContents.executeJavaScript(`window.__toggleSearchBar()`);
         event.preventDefault();
       }
     });
