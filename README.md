@@ -1,38 +1,64 @@
+<div align="center">
+
 # headless-browser
 
-A frameless Electron browser with an embedded sidebar for site group management. Launch curated sets of websites from the command line, switch between them using an in-window sidebar, and keep your terminal free.
+**A minimal, frameless Electron browser with site group management.**
+
+Launch curated sets of websites from the command line, switch between them with a collapsible sidebar, and keep your workspace distraction-free.
+
+[![Electron](https://img.shields.io/badge/Electron-40.6-47848F?logo=electron&logoColor=white)](https://www.electronjs.org/)
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
+
+</div>
+
+---
+
+<div align="center">
+
+<!-- Replace the line below with your screenshot -->
+<!-- ![Screenshot](screenshot.png) -->
+
+*Screenshot coming soon -- drop a `screenshot.png` in the repo root and uncomment the line above.*
+
+</div>
+
+---
 
 ## Features
 
-- Frameless Electron window with dark theme
-- Collapsible sidebar to switch between sites in a group
-- Save named groups of sites that persist across sessions
-- Manage groups interactively via CLI
-- Fullscreen-in-window support for embedded webviews
-- Draggable title region for frameless window movement
+- **Frameless window** -- clean, borderless chrome with a transparent drag region
+- **Collapsible sidebar** -- quick-switch between sites; collapse to a slim 40px strip
+- **Site groups** -- save named collections of URLs that persist across sessions
+- **CLI management** -- create, edit, delete, and view groups from your terminal
+- **Dark theme** -- easy on the eyes with a `#0f0f0f` background
+- **Fullscreen-in-window** -- webview fullscreen without taking over your display
+- **Keyboard-number nav** -- sites are numbered for fast identification
 
-## Requirements
-
-- Node.js
-- Python 3.8+ (for the group management CLI)
-
-## Setup
+## Quick Start
 
 ```bash
-git clone https://github.com/yourusername/headless-browser.git
+# clone & install
+git clone https://github.com/whitemask-1/headless-browser.git
 cd headless-browser
 npm install
+
+# create a site group
+python src/manage.py
+
+# launch it
+npm start -- <group-name>
 ```
 
 ## Usage
 
-### 1. Create a site group
+### Managing Groups
+
+Run the interactive CLI to create and organize your site groups:
 
 ```bash
 python src/manage.py
 ```
-
-Follow the prompts to create a named group of URLs. Groups are saved to `~/.browser_groups.json`.
 
 ```
 Groups: none
@@ -47,28 +73,53 @@ Enter URLs one per line, empty line to finish:
 Saved group 'work'
 ```
 
-### 2. Launch a group
+Groups are stored in `~/.browser_groups.json`.
+
+### Launching a Group
 
 ```bash
 npm start -- work
 ```
 
-This opens a frameless browser window with a sidebar listing each site. Click a site to load it in the main webview. The sidebar can be collapsed with the toggle button.
+This opens a frameless window with your sites listed in the sidebar. Click any site to load it in the main webview. Hit the toggle button (`‹`) to collapse the sidebar.
 
 ## Project Structure
 
 ```
 headless-browser/
-├── main.js          # Electron main process — creates the window, injects site data
-├── index.html       # UI shell — sidebar, webview, styles
-├── renderer.js      # Renderer script — populates sidebar buttons, handles navigation
-├── sites.json       # (unused) placeholder for local site data
+├── main.js          # Electron main process -- window creation, site injection
+├── index.html       # UI shell -- sidebar, webview, inline styles
+├── renderer.js      # Renderer -- sidebar buttons, navigation, collapse toggle
 ├── src/
-│   └── manage.py    # Python CLI for managing site groups
+│   └── manage.py    # Python CLI for CRUD on site groups
 ├── package.json
-└── .gitignore
+└── README.md
 ```
 
-## Data Storage
+## How It Works
 
-Site groups are stored in `~/.browser_groups.json` and are not tracked by git.
+| Component | Role |
+|-----------|------|
+| `main.js` | Reads `~/.browser_groups.json`, creates a frameless `BrowserWindow`, injects site data into the renderer via `window.__sites__` |
+| `index.html` | Defines the layout: a fixed transparent drag region, collapsible sidebar, and a `<webview>` for browsing |
+| `renderer.js` | Waits for injected site data, dynamically creates sidebar buttons, handles navigation and collapse |
+| `manage.py` | Interactive CLI that reads/writes `~/.browser_groups.json` for group management |
+
+## Requirements
+
+| Dependency | Version |
+|------------|---------|
+| Node.js | 18+ |
+| Python | 3.8+ |
+| Electron | 40.6 |
+
+## Contributing
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes
+4. Push to the branch and open a PR
+
+## License
+
+ISC
