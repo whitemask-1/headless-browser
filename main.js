@@ -142,8 +142,15 @@ function createWindow() {
       );
     });
 
-    // Keyboard shortcuts on the webview (where focus usually is)
+    // Forward Meta key state for Cmd+drag window moving
     wc.on("before-input-event", (event, input) => {
+      if (input.key === "Meta") {
+        const action = input.type === "keyDown" ? "add" : "remove";
+        win.webContents.executeJavaScript(
+          `document.body.classList.${action}('cmd-drag')`
+        );
+      }
+
       const meta = process.platform === "darwin" ? input.meta : input.control;
 
       if (meta && input.key === "r") {
@@ -175,6 +182,13 @@ function createWindow() {
         );
       }
     });
+  });
+
+  // Clean up cmd-drag state when window loses focus
+  win.on("blur", () => {
+    win.webContents.executeJavaScript(
+      `document.body.classList.remove('cmd-drag')`
+    );
   });
 
   win.loadFile("index.html");
