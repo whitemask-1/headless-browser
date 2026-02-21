@@ -101,6 +101,17 @@ window.__showPinIndicator = function (pinned) {
   }, 1500);
 };
 
+// --- Cmd+drag to move window ---
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Meta") document.body.classList.add("cmd-drag");
+});
+window.addEventListener("keyup", (e) => {
+  if (e.key === "Meta") document.body.classList.remove("cmd-drag");
+});
+window.addEventListener("blur", () => {
+  document.body.classList.remove("cmd-drag");
+});
+
 const waitForSites = setInterval(() => {
   if (window.__sites__ !== undefined) {
     clearInterval(waitForSites);

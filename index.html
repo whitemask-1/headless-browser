@@ -42,7 +42,6 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 10px;
-      -webkit-app-region: drag;
     }
 
     #title {
@@ -58,7 +57,6 @@
       font-size: 16px;
       cursor: pointer;
       padding: 0 4px;
-      -webkit-app-region: no-drag;
     }
 
     #toggle:hover { color: #e2e8f0; }
@@ -95,7 +93,12 @@
     }
 
     body.webview-fullscreen #drag {
+      display: block;
       z-index: 200;
+    }
+
+    body.webview-fullscreen .drag-handle {
+      display: none;
     }
 
     body.webview-fullscreen #browser {
@@ -111,9 +114,11 @@
     #browser {
       flex: 1;
       height: 100vh;
+      position: relative;
+      z-index: 15;
     }
 
-    /* transparent drag region overlaying top of window */
+    /* transparent drag region – hidden unless fullscreen */
     #drag {
       -webkit-app-region: drag;
       height: 32px;
@@ -122,6 +127,28 @@
       top: 0;
       left: 0;
       z-index: 10;
+      display: none;
+    }
+
+    /* top-center drag pill */
+    .drag-handle.tc {
+      -webkit-app-region: drag;
+      position: fixed;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      z-index: 30;
+    }
+
+    /* Cmd-drag mode: full window becomes draggable */
+    body.cmd-drag #drag {
+      display: block;
+      z-index: 250;
+      height: 100%;
     }
 
     /* Search overlay */
@@ -198,6 +225,7 @@
 </head>
 <body>
   <div id="drag"></div>
+  <div class="drag-handle tc"></div>
   <div id="search-overlay">
     <div id="search-box">
       <input id="search-input" type="text" placeholder="Search Google or enter a URL" autofocus />
