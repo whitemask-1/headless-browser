@@ -17,9 +17,8 @@ Launch curated sets of websites from the command line, switch between them with 
 <div align="center">
 
 <!-- Replace the line below with your screenshot -->
-<!-- ![Screenshot](screenshot.png) -->
 
-*Screenshot coming soon -- drop a `screenshot.png` in the repo root and uncomment the line above.*
+![Screenshot](screenshot.png)
 
 </div>
 
@@ -98,20 +97,20 @@ headless-browser/
 
 ## How It Works
 
-| Component | Role |
-|-----------|------|
-| `main.js` | Reads `~/.browser_groups.json`, creates a frameless `BrowserWindow`, injects site data into the renderer via `window.__sites__` |
-| `index.html` | Defines the layout: a fixed transparent drag region, collapsible sidebar, and a `<webview>` for browsing |
-| `renderer.js` | Waits for injected site data, dynamically creates sidebar buttons, handles navigation and collapse |
-| `manage.py` | Interactive CLI that reads/writes `~/.browser_groups.json` for group management |
+| Component     | Role                                                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `main.js`     | Reads `~/.browser_groups.json`, creates a frameless `BrowserWindow`, injects site data into the renderer via `window.__sites__` |
+| `index.html`  | Defines the layout: a fixed transparent drag region, collapsible sidebar, and a `<webview>` for browsing                        |
+| `renderer.js` | Waits for injected site data, dynamically creates sidebar buttons, handles navigation and collapse                              |
+| `manage.py`   | Interactive CLI that reads/writes `~/.browser_groups.json` for group management                                                 |
 
 ## Requirements
 
 | Dependency | Version |
-|------------|---------|
-| Node.js | 18+ |
-| Python | 3.8+ |
-| Electron | 40.6 |
+| ---------- | ------- |
+| Node.js    | 18+     |
+| Python     | 3.8+    |
+| Electron   | 40.6    |
 
 ## Contributing
 
