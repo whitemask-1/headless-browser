@@ -88,6 +88,23 @@
       min-width: 12px;
     }
 
+    webview:-webkit-full-screen {
+	    width: 100% !important;
+	    height: 100% !important;
+  		position: absolute !important;
+  		top: 0 !important;
+  		left: 0 !important;
+    }
+
+    webview:fullscreen {
+      width: 100% !important;
+      height: 100% !important; 
+  	position: absolute !important;
+  	top: 0 !important;
+  	left: 0 !important;
+   }
+    
+
     #browser {
       flex: 1;
       height: 100vh;
@@ -113,7 +130,7 @@
     </div>
     <div id="buttons"></div>
   </div>
-  <webview id="browser" src="https://youtube.com" allowpopups></webview>
+  <webview id="browser" src="https://youtube.com" allowpopups partition="persist:main"></webview>
   <script src="renderer.js"></script>
 </body>
 </html>
