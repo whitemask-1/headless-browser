@@ -48,20 +48,29 @@ git clone https://github.com/whitemask-1/headless-browser.git
 cd headless-browser
 npm install
 
-# launch as a standalone browser (bare mode)
-npm start
+# launch as a standalone browser (bare mode, frees your terminal)
+npm run launch
 
 # or create a site group and launch it
 python src/manage.py
-npm start -- <group-name>
+npm run launch -- <group-name>
 ```
 
 ## Usage
 
+### Launch Modes
+
+| Command | Behavior |
+| --- | --- |
+| `npm run launch` | Detaches from terminal — your shell stays free |
+| `npm run launch -- <group>` | Detached with a site group |
+| `npm start` | Attached to terminal (for development/debugging) |
+| `npm start -- <group>` | Attached with a site group |
+
 ### Bare Mode (No Group)
 
 ```bash
-npm start
+npm run launch
 ```
 
 Opens a frameless window pointed straight at Google with no sidebar. Use `Cmd/Ctrl+L` to open the search bar, type a URL or search term, and press Enter.
@@ -92,7 +101,7 @@ Groups are stored in `~/.browser_groups.json`.
 ### Launching a Group
 
 ```bash
-npm start -- work
+npm run launch -- work
 ```
 
 This opens a frameless window with your sites listed in the sidebar. Click any site to load it in the main webview. Hit the toggle button (`‹`) to collapse the sidebar.

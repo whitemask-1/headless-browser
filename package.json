@@ -4,7 +4,8 @@
   "description": "A frameless browser launcher with site group management. Launch curated sets of websites from the command line, switch between them using a floating control panel, and keep your terminal free.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "launch": "electron . > /dev/null 2>&1 &"
   },
   "keywords": [],
   "author": "",
