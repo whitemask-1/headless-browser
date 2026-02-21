@@ -7,17 +7,10 @@
 
     body {
       display: flex;
-      flex-direction: column;
       height: 100vh;
       background: #0f0f0f;
       font-family: Helvetica, sans-serif;
       overflow: hidden;
-    }
-
-    #content {
-      display: flex;
-      flex: 1;
-      min-height: 0;
     }
 
     #sidebar {
@@ -114,30 +107,31 @@
 
     #browser {
       flex: 1;
-      height: 100%;
+      height: 100vh;
     }
 
-    /* drag region for frameless window */
+    /* transparent drag region overlaying top of window */
     #drag {
       -webkit-app-region: drag;
       height: 32px;
       width: 100%;
-      flex-shrink: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
   <div id="drag"></div>
-  <div id="content">
-    <div id="sidebar">
-      <div id="header">
-        <span id="title">Sites</span>
-        <button id="toggle">‹</button>
-      </div>
-      <div id="buttons"></div>
+  <div id="sidebar">
+    <div id="header">
+      <span id="title">Sites</span>
+      <button id="toggle">‹</button>
     </div>
-    <webview id="browser" src="https://youtube.com" allowpopups partition="persist:main"></webview>
+    <div id="buttons"></div>
   </div>
+  <webview id="browser" src="https://youtube.com" allowpopups partition="persist:main"></webview>
   <script src="renderer.js"></script>
 </body>
 </html>
