@@ -29,9 +29,18 @@ def main():
 
         elif choice == "1":
             name = input("Group name: ").strip()
-            print("Enter URLs one per line, empty line to finish:")
-            urls = {}
-            i = 1
+            existing = data.get(name, {})
+            if existing:
+                print(f"Existing sites in '{name}':")
+                for k, v in existing.items():
+                    print(f"  {k}: {v}")
+                print("Add new URLs (they will be appended). Empty line to finish:")
+                i = max(int(k) for k in existing.keys()) + 1
+                urls = dict(existing)
+            else:
+                print("Enter URLs one per line, empty line to finish:")
+                i = 1
+                urls = {}
             while True:
                 url = input(f"  {i}: ").strip()
                 if not url:
