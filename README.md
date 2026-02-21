@@ -155,6 +155,21 @@ headless-browser/
 | Python     | 3.8+    |
 | Electron   | 40.6    |
 
+## Logs
+
+All app output is redirected to a log file to keep your terminal clean. No output will appear in the terminal when the app is running.
+
+```bash
+# View logs
+cat ~/.headless-browser/app.log
+
+# Tail logs in real time
+tail -f ~/.headless-browser/app.log
+
+# Clear logs
+> ~/.headless-browser/app.log
+```
+
 ## Contributing
 
 1. Fork the repo

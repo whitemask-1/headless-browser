@@ -3,6 +3,16 @@ const path = require("path");
 const fs = require("fs");
 const os = require("os");
 
+// --- Redirect all output to log file to keep terminal clean ---
+const logDir = path.join(os.homedir(), ".headless-browser");
+try { fs.mkdirSync(logDir, { recursive: true }); } catch {}
+const logStream = fs.createWriteStream(path.join(logDir, "app.log"), { flags: "a" });
+process.stdout.write = logStream.write.bind(logStream);
+process.stderr.write = logStream.write.bind(logStream);
+console.log = (...args) => logStream.write(args.join(" ") + "\n");
+console.error = (...args) => logStream.write("[ERROR] " + args.join(" ") + "\n");
+console.warn = (...args) => logStream.write("[WARN] " + args.join(" ") + "\n");
+
 const groupName = process.argv.slice(2).find((a) => !a.startsWith("-")) || "";
 const dataFile = path.join(os.homedir(), ".browser_groups.json");
 let data = {};
@@ -31,6 +41,9 @@ function createWindow() {
     );
   });
   win.webContents.on("did-attach-webview", (event, wc) => {
+    // Suppress webview console output
+    wc.on("console-message", (e) => e.preventDefault());
+
     // Block ad / tracker / scam popups, navigate legit links in-place
     const blockedDomains = [
       "doubleclick.net",
