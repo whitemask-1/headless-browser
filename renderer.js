@@ -101,6 +101,21 @@ window.__showPinIndicator = function (pinned) {
   }, 1500);
 };
 
+window.__showCopyToast = function () {
+  let toast = document.getElementById("copy-toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "copy-toast";
+    document.body.appendChild(toast);
+  }
+  toast.textContent = "Link copied to clipboard";
+  toast.style.opacity = "1";
+  clearTimeout(window.__copyTimeout);
+  window.__copyTimeout = setTimeout(() => {
+    toast.style.opacity = "0";
+  }, 1000);
+};
+
 // --- Cmd+drag to move window ---
 window.addEventListener("keydown", (e) => {
   if (e.key === "Meta") document.body.classList.add("cmd-drag");

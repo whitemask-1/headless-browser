@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut } = require("electron");
+const { app, BrowserWindow, globalShortcut, clipboard } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const os = require("os");
@@ -171,6 +171,18 @@ function createWindow() {
       if (meta && input.key === "l") {
         win.webContents.executeJavaScript(`window.__toggleSearchBar()`);
         event.preventDefault();
+      }
+
+      // Cmd/Ctrl+Shift+C: Copy current URL to clipboard
+      if (meta && input.shift && input.key === "c") {
+        event.preventDefault();
+        const url = wc.getURL();
+        if (url) {
+          clipboard.writeText(url);
+          win.webContents.executeJavaScript(
+            `if (typeof window.__showCopyToast === "function") window.__showCopyToast();`
+          );
+        }
       }
 
       if (meta && input.key === "t") {
