@@ -30,11 +30,12 @@ Launch curated sets of websites from the command line, switch between them with 
 - **Search bar popup** -- press `Cmd/Ctrl+L` to open a search overlay; type a URL or search query and hit Enter
 - **Frameless window** -- clean, borderless chrome with a transparent drag region
 - **Collapsible sidebar** -- quick-switch between sites; collapse to a slim 40px strip
+- **Tab management** -- up to 9 independent tabs, each with its own history and session; hover the bottom edge of the window to reveal the tab strip (favicon + title); `Cmd/Ctrl+T` new tab, `Cmd/Ctrl+W` close tab, `Cmd/Ctrl+1-9` / `Cmd/Ctrl+[`/`]` to switch
 - **Site groups** -- save named collections of URLs that persist across sessions
 - **CLI management** -- create, edit, delete, and view groups from your terminal
 - **Dark theme** -- easy on the eyes with a `#0f0f0f` background
 - **Fullscreen-in-window** -- webview fullscreen expands within the app window, not your entire display
-- **Keyboard shortcuts** -- `Cmd/Ctrl+R` reload, `Cmd/Ctrl+←` back, `Cmd/Ctrl+→` forward, `Cmd/Ctrl+L` search bar, `Cmd/Ctrl+T` pin on top
+- **Keyboard shortcuts** -- `Cmd/Ctrl+R` reload, `Cmd/Ctrl+←` back, `Cmd/Ctrl+→` forward, `Cmd/Ctrl+L` search bar, `Cmd/Ctrl+P` pin on top, `Cmd/Ctrl+T` new tab, `Cmd/Ctrl+W` close tab, `Cmd/Ctrl+1-9` switch tab
 - **Keyboard-number nav** -- sites are numbered for fast identification
 - **Persistent sessions** -- cookies, logins, and local storage survive across app restarts
 - **Single sign-on** -- sign into Google, GitHub, Microsoft, etc. once and stay logged in
@@ -120,7 +121,13 @@ Press **`Cmd+L`** (macOS) or **`Ctrl+L`** (Windows/Linux) at any time to open th
 | --- | --- |
 | `Cmd/Ctrl + L` | Open search bar |
 | `Cmd/Ctrl + R` | Reload current page |
-| `Cmd/Ctrl + T` | Toggle always-on-top (pin/unpin) |
+| `Cmd/Ctrl + T` | Open new tab |
+| `Cmd/Ctrl + W` | Close current tab |
+| `Cmd/Ctrl + 0` | Slate clean (reset to 1 tab on Google) |
+| `Cmd/Ctrl + 1-9` | Switch to tab N |
+| `Cmd/Ctrl + [` | Switch to previous tab |
+| `Cmd/Ctrl + ]` | Switch to next tab |
+| `Cmd/Ctrl + P` | Toggle always-on-top (pin/unpin) |
 | `Cmd/Ctrl + ←` | Go back |
 | `Cmd/Ctrl + →` | Go forward |
 | `Escape` | Close search bar |
