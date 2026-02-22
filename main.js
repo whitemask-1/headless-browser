@@ -185,12 +185,62 @@ function createWindow() {
         }
       }
 
+      // Cmd/Ctrl+P: Toggle always-on-top pin
       if (meta && input.key === "p") {
         event.preventDefault();
         const pinned = !win.isAlwaysOnTop();
         win.setAlwaysOnTop(pinned, "floating");
         win.webContents.executeJavaScript(
           `if (typeof window.__showPinIndicator === "function") window.__showPinIndicator(${pinned});`
+        );
+      }
+
+      // Cmd/Ctrl+T: New tab
+      if (meta && input.key === "t") {
+        event.preventDefault();
+        win.webContents.executeJavaScript(
+          `if (typeof window.__newTab === "function") window.__newTab();`
+        );
+      }
+
+      // Cmd/Ctrl+W: Close current tab
+      if (meta && input.key === "w") {
+        event.preventDefault();
+        win.webContents.executeJavaScript(
+          `if (typeof window.__closeTab === "function") window.__closeTab();`
+        );
+      }
+
+      // Cmd/Ctrl+0: Slate clean (reset all tabs)
+      if (meta && input.key === "0") {
+        event.preventDefault();
+        win.webContents.executeJavaScript(
+          `if (typeof window.__slateClean === "function") window.__slateClean();`
+        );
+      }
+
+      // Cmd/Ctrl+[: Previous tab
+      if (meta && input.key === "[") {
+        event.preventDefault();
+        win.webContents.executeJavaScript(
+          `if (typeof window.__prevTab === "function") window.__prevTab();`
+        );
+      }
+
+      // Cmd/Ctrl+]: Next tab
+      if (meta && input.key === "]") {
+        event.preventDefault();
+        win.webContents.executeJavaScript(
+          `if (typeof window.__nextTab === "function") window.__nextTab();`
+        );
+      }
+
+      // Cmd/Ctrl+1-9: Switch to tab N
+      if (meta && input.key >= "1" && input.key <= "9") {
+        event.preventDefault();
+        const n = parseInt(input.key, 10);
+        win.webContents.executeJavaScript(
+          `if (typeof window.__switchTab === "function") window.__switchTab(${n});`
         );
       }
     });
