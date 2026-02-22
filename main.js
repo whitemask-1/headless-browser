@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut, clipboard } = require("electron");
+const { app, BrowserWindow, Menu, globalShortcut, clipboard } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const os = require("os");
@@ -253,6 +253,7 @@ function createWindow() {
     );
   });
 
+  Menu.setApplicationMenu(null);
   win.loadFile("index.html");
 }
 
