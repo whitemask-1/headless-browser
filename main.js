@@ -185,7 +185,7 @@ function createWindow() {
         }
       }
 
-      if (meta && input.key === "t") {
+      if (meta && input.key === "p") {
         event.preventDefault();
         const pinned = !win.isAlwaysOnTop();
         win.setAlwaysOnTop(pinned, "floating");
