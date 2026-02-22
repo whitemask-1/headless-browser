@@ -78,7 +78,7 @@ function init() {
       }
     }
     // All 9 slots full — focus the last tab
-    switchTab(tabs[tabs.length - 1].id);
+    switchTab([...tabs].sort((a, b) => a.id - b.id).at(-1).id);
   }
 
   function closeTab() {
