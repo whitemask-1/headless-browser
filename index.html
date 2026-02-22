@@ -101,7 +101,7 @@
       display: none;
     }
 
-    body.webview-fullscreen #browser {
+    body.webview-fullscreen #tab-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -110,13 +110,6 @@
       z-index: 100;
     }
     
-
-    #browser {
-      flex: 1;
-      height: 100vh;
-      position: relative;
-      z-index: 15;
-    }
 
     /* transparent drag region – hidden unless fullscreen */
     #drag {
@@ -222,6 +215,23 @@
       transition: opacity 0.3s ease;
     }
 
+    #slate-toast {
+      position: fixed;
+      bottom: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(30, 30, 30, 0.9);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      z-index: 99999;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
     #pin-indicator {
       position: fixed;
       top: 50px;
@@ -237,6 +247,131 @@
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.3s ease;
+    }
+
+    /* Tab container: replaces #browser */
+    #tab-container {
+      flex: 1;
+      position: relative;
+      height: 100vh;
+      z-index: 15;
+    }
+
+    #tab-container webview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Hover trigger zone: 8px invisible strip at bottom */
+    #tab-strip-trigger {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      z-index: 1000;
+      -webkit-app-region: no-drag;
+    }
+
+    /* Tab strip: hidden by default, revealed on hover */
+    #tab-strip {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 2px;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      -webkit-app-region: no-drag;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    #tab-strip.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .tab-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #64748b;
+      font-size: 11px;
+      font-family: Helvetica, sans-serif;
+      max-width: 160px;
+      min-width: 80px;
+      -webkit-app-region: no-drag;
+      user-select: none;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .tab-item:hover {
+      background: #1e1e1e;
+      color: #e2e8f0;
+    }
+
+    .tab-item.active {
+      background: #1e1e1e;
+      color: #e2e8f0;
+      border-bottom: 2px solid #3b82f6;
+    }
+
+    .tab-favicon {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      border-radius: 2px;
+    }
+
+    .tab-favicon-placeholder {
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .tab-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #new-tab-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+      -webkit-app-region: no-drag;
+      font-family: Helvetica, sans-serif;
+    }
+
+    #new-tab-btn:hover {
+      color: #e2e8f0;
+      background: #1e1e1e;
+    }
+
+    /* Fullscreen: hide strip elements */
+    body.webview-fullscreen #tab-strip,
+    body.webview-fullscreen #tab-strip-trigger {
+      display: none;
     }
   </style>
 </head>
@@ -256,7 +391,11 @@
     </div>
     <div id="buttons"></div>
   </div>
-  <webview id="browser" allowpopups allowfullscreen partition="persist:main"></webview>
+  <div id="tab-container"></div>
+  <div id="tab-strip-trigger"></div>
+  <div id="tab-strip">
+    <button id="new-tab-btn">+</button>
+  </div>
   <script src="renderer.js"></script>
 </body>
 </html>
