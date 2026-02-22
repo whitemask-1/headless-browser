@@ -35,7 +35,7 @@ Launch curated sets of websites from the command line, switch between them with 
 - **CLI management** -- create, edit, delete, and view groups from your terminal
 - **Dark theme** -- easy on the eyes with a `#0f0f0f` background
 - **Fullscreen-in-window** -- webview fullscreen expands within the app window, not your entire display
-- **Keyboard shortcuts** -- `Cmd/Ctrl+R` reload, `Cmd/Ctrl+←` back, `Cmd/Ctrl+→` forward, `Cmd/Ctrl+L` search bar, `Cmd/Ctrl+P` pin on top, `Cmd/Ctrl+T` new tab, `Cmd/Ctrl+W` close tab, `Cmd/Ctrl+1-9` switch tab
+- **Keyboard shortcuts** -- `Cmd/Ctrl+R` reload, `Cmd/Ctrl+←` back, `Cmd/Ctrl+→` forward, `Cmd/Ctrl+L` search bar, `Cmd/Ctrl+P` pin on top, `Cmd/Ctrl+T` new tab, `Cmd/Ctrl+W` close tab, `Cmd/Ctrl+1-9` switch tab, `Cmd/Ctrl+[`/`]` prev/next tab, `Cmd/Ctrl+0` slate clean
 - **Keyboard-number nav** -- sites are numbered for fast identification
 - **Persistent sessions** -- cookies, logins, and local storage survive across app restarts
 - **Single sign-on** -- sign into Google, GitHub, Microsoft, etc. once and stay logged in

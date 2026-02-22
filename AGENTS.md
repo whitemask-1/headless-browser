@@ -31,7 +31,7 @@ headless-browser/
 
 | File | Process | Purpose |
 |------|---------|---------|
-| `main.js` | Main (Node) | Creates a frameless `BrowserWindow`, reads site group data from `~/.browser_groups.json`, injects it into the renderer via `executeJavaScript`, handles webview fullscreen events and keyboard shortcuts (`Cmd/Ctrl+R`, `Cmd/Ctrl+←/→`, `Cmd/Ctrl+L`, `Cmd/Ctrl+T`). |
+| `main.js` | Main (Node) | Creates a frameless `BrowserWindow`, reads site group data from `~/.browser_groups.json`, injects it into the renderer via `executeJavaScript`, handles webview fullscreen events and keyboard shortcuts (`Cmd/Ctrl+R`, `Cmd/Ctrl+←/→`, `Cmd/Ctrl+L`, `Cmd/Ctrl+P`, `Cmd/Ctrl+T/W/0/1-9/[/]`). |
 | `index.html` | Renderer | Single-page UI shell containing all inline CSS. Defines the layout: transparent drag region, collapsible sidebar, search overlay (`#search-overlay`), and a `<webview>` element for browsing. |
 | `renderer.js` | Renderer | Polls for injected `window.__sites__` data, then initializes the UI. Dynamically creates sidebar buttons, handles site navigation, search bar show/hide/submit, sidebar collapse toggle, and exposes `window.__showPinIndicator()` for the always-on-top toast. In bare mode, hides the sidebar and loads Google. |
 | `src/manage.py` | Standalone Python | Interactive CLI (no external dependencies) that reads/writes `~/.browser_groups.json` for creating, editing, deleting, and viewing site groups. |
