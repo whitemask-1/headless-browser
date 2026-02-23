@@ -28,7 +28,6 @@ function init() {
     wv.setAttribute("allowpopups", "");
     wv.setAttribute("allowfullscreen", "");
     wv.setAttribute("partition", "persist:main");
-    wv.style.display = "none";
     tabContainer.appendChild(wv);
 
     const tab = { id, url: url || "https://www.google.com", title: "New Tab", favicon: null, webview: wv };
@@ -59,10 +58,14 @@ function init() {
       if (tabs.length >= 9) return;
       createTab(id, null);
     }
-    tabs.forEach(t => { t.webview.style.display = "none"; });
+    tabs.forEach(t => {
+      t.webview.style.visibility = "hidden";
+      t.webview.style.pointerEvents = "none";
+    });
     const tab = tabs.find(t => t.id === id);
     if (tab) {
-      tab.webview.style.display = "block";
+      tab.webview.style.visibility = "visible";
+      tab.webview.style.pointerEvents = "auto";
       activeTabId = id;
       renderTabStrip();
     }

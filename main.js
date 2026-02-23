@@ -27,7 +27,7 @@ function createWindow() {
     height: 800,
     frame: false,
     fullscreenable: false,
-    backgroundColor: "0f0f0f",
+    backgroundColor: "#0f0f0f",
     webPreferences: {
       nodeIntegreation: false,
       contextIsolation: false,
