@@ -1,7 +1,7 @@
 {
   "name": "headless-browser",
   "version": "1.1.0",
-  "description": "A frameless browser launcher with site group management. Launch curated sets of websites from the command line, switch between them using a floating control panel, and keep your terminal free.",
+  "description": "A minimal, frameless Electron browser with keyboard-driven tab management. Open up to 9 independent tabs, launch named site groups as session presets, and keep your workspace distraction-free.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",

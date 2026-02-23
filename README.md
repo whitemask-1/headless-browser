@@ -2,9 +2,9 @@
 
 # headless-browser
 
-**A minimal, frameless Electron browser with site group management.**
+**A minimal, frameless Electron browser with keyboard-driven tab management.**
 
-Launch curated sets of websites from the command line, switch between them with a collapsible sidebar, and keep your workspace distraction-free. Or launch it standalone as a clean, minimal browser.
+Open up to 9 independent tabs with a hover-reveal strip, navigate with keyboard shortcuts, and keep your workspace distraction-free. Launch named site groups as session presets, or start bare and browse freely. Session restore coming soon.
 
 [![Electron](https://img.shields.io/badge/Electron-40.6-47848F?logo=electron&logoColor=white)](https://www.electronjs.org/)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)](https://www.python.org/)

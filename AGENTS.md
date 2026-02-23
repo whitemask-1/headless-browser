@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-**headless-browser** is a minimal, frameless Electron desktop browser with site group management. Users can launch curated sets of websites from the command line, switch between them via a collapsible sidebar, or run it standalone as a clean browser ("bare mode") pointed at Google.
+**headless-browser** is a minimal, frameless Electron desktop browser with keyboard-driven tab management. Users open up to 9 independent tabs, navigate with Cmd+T/W/[/]/1-9, and browse freely. Named site groups serve as launch presets that pre-populate the initial tab. Bare mode launches with no preset, starting at Google. Session state saving (restore tabs across restarts) is planned.
 
 The tech stack is intentionally small: Electron (Node.js) for the desktop shell, vanilla HTML/CSS/JS for the UI, and a Python CLI script for managing site groups.
 
