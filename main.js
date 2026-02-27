@@ -37,7 +37,7 @@ function createWindow() {
   const isBare = !groupName || Object.keys(sites).length === 0;
   win.webContents.on("did-finish-load", () => {
     win.webContents.executeJavaScript(
-      `window.__sites__ = ${JSON.stringify(sites)}; window.__bare__ = ${isBare}; window.__group__ = ${JSON.stringify(groupName)};`,
+      `window.__sites__ = ${JSON.stringify(sites)}; window.__bare__ = ${isBare}; window.__group__ = ${JSON.stringify(groupName)}; window.__init__();`,
     );
   });
   win.webContents.on("did-attach-webview", (event, wc) => {

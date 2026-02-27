@@ -30,8 +30,13 @@ function init() {
     wv.setAttribute("partition", "persist:main");
     tabContainer.appendChild(wv);
 
-    const tab = { id, url: url || "https://www.google.com", title: "New Tab", favicon: null, webview: wv };
+    const tab = { id, url: url || "https://www.google.com", title: "New Tab", favicon: null, webview: wv, ready: false };
     tabs.push(tab);
+
+    wv.addEventListener("dom-ready", () => {
+      tab.ready = true;
+      if (activeTabId === tab.id) wv.focus();
+    });
 
     wv.addEventListener("page-favicon-updated", (e) => {
       tab.favicon = e.favicons[0] || null;
@@ -58,6 +63,8 @@ function init() {
       if (tabs.length >= 9) return;
       createTab(id, null);
     }
+    const current = tabs.find(t => t.id === activeTabId);
+    if (current) current.webview.blur();
     tabs.forEach(t => {
       t.webview.style.visibility = "hidden";
       t.webview.style.pointerEvents = "none";
@@ -68,6 +75,7 @@ function init() {
       tab.webview.style.pointerEvents = "auto";
       activeTabId = id;
       renderTabStrip();
+      if (tab.ready) tab.webview.focus();
     }
   }
 
@@ -314,9 +322,4 @@ window.addEventListener("blur", () => {
   document.body.classList.remove("cmd-drag");
 });
 
-const waitForSites = setInterval(() => {
-  if (window.__sites__ !== undefined) {
-    clearInterval(waitForSites);
-    init();
-  }
-}, 50);
+window.__init__ = init;
